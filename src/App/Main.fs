@@ -141,7 +141,8 @@ let update msg model =
                 match code with
                 | Some code -> code
                 | None -> getEditorContent model.FSharpEditor
-            CompileCode(code, model.Sidebar.Options.Optimize) |> model.Worker.Post
+            CompileCode(code, model.Sidebar.Options.FscOptimize, model.Sidebar.Options.AggressiveInline)
+            |> model.Worker.Post
             { model with State = Compiling }, Cmd.none
         else
          model, Cmd.none

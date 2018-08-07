@@ -144,7 +144,7 @@ let view (model: Model) dispatch =
     let widgets =
         [ "General", Fa.I.Th, Widgets.General.view model.General (GeneralMsg >> dispatch), None
           "Samples", Fa.I.Book, Widgets.Samples.view model.Samples (SamplesMsg >> dispatch), Some "500px"
-          "Options", Fa.I.Cog, Widgets.Options.view model.Options (OptionsMsg >> dispatch), None
+          "Options (experimental)", Fa.I.Cog, Widgets.Options.view model.Options (OptionsMsg >> dispatch), None
           "About", Fa.I.Info, Widgets.About.view, None ]
         |> List.map (renderWidgets model dispatch)
 

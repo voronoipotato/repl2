@@ -103,26 +103,39 @@ module Options =
     open Fulma
 
     type Model =
-        { Optimize: bool }
+        { FscOptimize: bool
+          AggressiveInline: bool
+        }
 
     type Msg =
-        | ToggleOptimize
+        | ToggleFscOptimize
+        | ToggleAggressiveInline
 
     let init () =
-        { Optimize = false }
+        { FscOptimize = false
+          AggressiveInline = false
+        }
 
     let update msg model =
         match msg with
-        | ToggleOptimize ->
-            { model with Optimize = not model.Optimize }
+        | ToggleFscOptimize ->
+            { model with FscOptimize = not model.FscOptimize }
+        | ToggleAggressiveInline ->
+            { model with AggressiveInline = not model.AggressiveInline }
+
+    let checkbox txt value dispatch msg =
+        Checkbox.checkbox [ ]
+            [ Checkbox.input
+                [ Common.Props [ Checked value
+                                 OnChange (fun _ -> dispatch msg) ] ]
+              str (" " + txt) ]
+
 
     let view (model: Model) dispatch =
         Content.content [ ]
-            [ Checkbox.checkbox [ ]
-                [ Checkbox.input
-                    [ Common.Props [ Checked model.Optimize
-                                     OnChange (fun _ -> dispatch ToggleOptimize) ] ]
-                  str " Optimize (experimental)" ] ]
+            [ checkbox "FSC Optimize" model.FscOptimize dispatch ToggleFscOptimize
+              checkbox "Aggressive Inline" model.AggressiveInline dispatch ToggleAggressiveInline
+            ]
 
 module About =
 
