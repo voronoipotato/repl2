@@ -38,10 +38,10 @@ let init() = async {
                 let res = Fable.ParseFSharpProject(checker, Literals.FILE_NAME, fsharpCode)
                 currentResults <- Some res
                 ParsedCode res.Errors |> worker.Post
-            | CompileCode(fsharpCode, fcsOptimize, aggressiveInline) ->
+            | CompileCode(fsharpCode, fcsOptimize, fableOptimize) ->
                 try
                     let parseResults = measureTime "FCS parsing" Fable.ParseFSharpProject (checker, Literals.FILE_NAME, fsharpCode)
-                    let babelAst = measureTime "Fable transform" Fable.CompileToBabelAst ("fable-core", parseResults, Literals.FILE_NAME, fcsOptimize, aggressiveInline)
+                    let babelAst = measureTime "Fable transform" Fable.CompileToBabelAst ("fable-core", parseResults, Literals.FILE_NAME, fcsOptimize, fableOptimize)
                     let jsCode = measureTime "Babel generation" compileBabelAst babelAst
                     CompiledCode jsCode |> worker.Post
                 with er ->
@@ -63,7 +63,8 @@ let init() = async {
                     FoundCompletions completions |> worker.Post
                 } |> Async.StartImmediate
         )
-    with _ ->
+    with ex ->
+        printfn "Error when creating FCS checker: %s" ex.Message
         worker.Post LoadFailed
 }
 

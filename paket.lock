@@ -320,8 +320,8 @@ NUGET
       FSharp.Core (>= 4.5) - restriction: >= netstandard2.0
 GITHUB
   remote: fable-compiler/Fable
-    src/dotnet/Fable.JS/Interfaces.fs (c44181ef40ed3ee9a4fdd6857589917cdbd90ff2)
-    src/dotnet/Fable.JS/Metadata.fs (c44181ef40ed3ee9a4fdd6857589917cdbd90ff2)
+    src/dotnet/Fable.JS/Interfaces.fs (e6bd79d48e2213af42c061412d47d526f1e8d4ef)
+    src/dotnet/Fable.JS/Metadata.fs (e6bd79d48e2213af42c061412d47d526f1e8d4ef)
 GROUP Build
 RESTRICTION: == net46
 NUGET

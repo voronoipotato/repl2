@@ -104,24 +104,24 @@ module Options =
 
     type Model =
         { FscOptimize: bool
-          AggressiveInline: bool
+          FableOptimize: bool
         }
 
     type Msg =
         | ToggleFscOptimize
-        | ToggleAggressiveInline
+        | ToggleFableOptimize
 
     let init () =
         { FscOptimize = false
-          AggressiveInline = false
+          FableOptimize = false
         }
 
     let update msg model =
         match msg with
         | ToggleFscOptimize ->
             { model with FscOptimize = not model.FscOptimize }
-        | ToggleAggressiveInline ->
-            { model with AggressiveInline = not model.AggressiveInline }
+        | ToggleFableOptimize ->
+            { model with FableOptimize = not model.FableOptimize }
 
     let checkbox txt value dispatch msg =
         Checkbox.checkbox [ ]
@@ -134,7 +134,7 @@ module Options =
     let view (model: Model) dispatch =
         Content.content [ ]
             [ checkbox "FSC Optimize" model.FscOptimize dispatch ToggleFscOptimize
-              checkbox "Aggressive Inline" model.AggressiveInline dispatch ToggleAggressiveInline
+              checkbox "Fable Optimize" model.FableOptimize dispatch ToggleFableOptimize
             ]
 
 module About =
